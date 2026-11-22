@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>课表 · 课程 / 成绩 / 考试</title>
+    <meta name="description" content="大学课表小程序：查课程、查成绩、查考试日程，支持 iOS 与 Windows。" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="课表" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href="./icons/icon-192.png" />
+    <script>
+      /* 首屏前先定好明暗主题，避免深色模式闪白 */
+      (function () {
+        try {
+          var param = new URLSearchParams(location.search).get('theme');
+          var theme = 'auto';
+          if (param === 'dark' || param === 'light' || param === 'auto') {
+            theme = param;
+          } else {
+            var raw = localStorage.getItem('campus-timetable-v1');
+            if (raw) {
+              var saved = JSON.parse(raw);
+              if (saved && saved.state && saved.state.theme) theme = saved.state.theme;
+            }
+          }
+          var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = theme === 'auto' ? (dark ? 'dark' : 'light') : theme;
+        } catch (e) {
+          /* 读不到就交给默认浅色 */
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/index-CSfOVT5X.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-t-9nm1lz.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
